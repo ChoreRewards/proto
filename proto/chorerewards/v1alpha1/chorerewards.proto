@@ -81,7 +81,7 @@ service ChoreRewardsService {
   rpc AddTaskToFeed(AddTaskToFeedRequest) returns (AddTaskToFeedResponse) {
     option (google.api.http) = {
       post: "/v1alpha1/tasks-feed"
-      body: "task"
+      body: "task_feed"
     };
   }
 }
