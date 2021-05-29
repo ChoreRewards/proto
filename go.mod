@@ -1,4 +1,4 @@
-module github.com/choreRewards/api
+module github.com/chorerewards/api
 
 go 1.16
 
