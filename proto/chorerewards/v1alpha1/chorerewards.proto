@@ -1,0 +1,325 @@
+syntax = "proto3";
+
+package chorerewards.v1alpha1;
+
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/ChoreRewards/api/ChoreRewards/v1alpha1;chorerewardsv1alpha1";
+
+service ChoreRewardsService {
+  // ListUsers
+  //
+  // Lists Users
+  rpc ListUsers(ListUsersRequest) returns (ListUsersResponse) {
+    option (google.api.http) = {
+      get: "/v1alpha1/users"
+    };
+  }
+
+  // ListCategories
+  //
+  // Lists Categories
+  rpc ListCategories(ListCategoriesRequest) returns (ListCategoriesResponse) {
+    option (google.api.http) = {
+      get: "/v1alpha1/categories"
+    };
+  }
+
+  // ListTasks
+  //
+  // Lists Tasks
+  rpc ListTasks(ListTasksRequest) returns (ListTasksResponse) {
+    option (google.api.http) = {
+      get: "/v1alpha1/tasks"
+    };
+  }
+
+  // ListTasksFeed
+  //
+  // Lists Tasks Feed
+  rpc ListTasksFeed(ListTasksFeedRequest) returns (ListTasksFeedResponse) {
+    option (google.api.http) = {
+      get: "/v1alpha1/tasks-feed"
+    };
+  }
+
+  // CreateUser
+  //
+  // Creates a new User
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
+    option (google.api.http) = {
+      post: "/v1alpha1/users",
+      body: "user"
+    };
+  }
+
+  // CreateCategory
+  //
+  // Creates a new Category
+  rpc CreateCategory(CreateCategoryRequest) returns (CreateCategoryResponse) {
+    option (google.api.http) = {
+      post: "/v1alpha1/categories",
+      body: "category"
+    };
+  }
+
+  // CreateTask
+  //
+  // Creates a new Task
+  rpc CreateTask(CreateTaskRequest) returns (CreateTaskResponse) {
+    option (google.api.http) = {
+      post: "/v1alpha1/tasks"
+      body: "task"
+    };
+  }
+
+  // AddTaskToFeed
+  //
+  // Adds a Task to the TaskFeed
+  rpc AddTaskToFeed(AddTaskToFeedRequest) returns (AddTaskToFeedResponse) {
+    option (google.api.http) = {
+      post: "/v1alpha1/tasks-feed"
+      body: "task"
+    };
+  }
+}
+
+message ListUsersRequest {
+  // The maximum number of items to return.
+  int32 page_size = 1;
+
+  // The next_page_token value returned from a previous List request, if any.
+  string page_token = 2;
+}
+
+message ListUsersResponse {
+  // The list of Tasks
+  repeated User users = 1;
+
+  // Token to retrieve the next page of results, or empty if there are no more
+  // results in the list.
+  string next_page_token = 2;
+}
+
+message CreateUserRequest {
+  // The user to create
+  User user = 1;
+}
+
+message CreateUserResponse {
+  // The created user
+  User user = 1;
+}
+
+
+message ListCategoriesRequest {
+  // The maximum number of items to return.
+  int32 page_size = 1;
+
+  // The next_page_token value returned from a previous List request, if any.
+  string page_token = 2;
+}
+
+message ListCategoriesResponse {
+  // The list of Tasks
+  repeated Category categories = 1;
+
+  // Token to retrieve the next page of results, or empty if there are no more
+  // results in the list.
+  string next_page_token = 2;
+}
+
+message CreateCategoryRequest {
+  // The category to create
+  Category category = 1;
+}
+
+message CreateCategoryResponse {
+  // The created category
+  Category category = 1;
+}
+
+
+message ListTasksRequest {
+  // The maximum number of items to return.
+  int32 page_size = 1;
+
+  // The next_page_token value returned from a previous List request, if any.
+  string page_token = 2;
+}
+
+message ListTasksResponse {
+  // The list of Tasks
+  repeated Task tasks = 1;
+
+  // Token to retrieve the next page of results, or empty if there are no more
+  // results in the list.
+  string next_page_token = 2;
+}
+
+message CreateTaskRequest {
+  // The task to create
+  Task task = 1;
+}
+
+message CreateTaskResponse {
+  // The created task
+  Task task = 1;
+}
+
+message ListTasksFeedRequest {
+  // The maximum number of items to return.
+  int32 page_size = 1;
+
+  // The next_page_token value returned from a previous List request, if any.
+  string page_token = 2;
+}
+
+message ListTasksFeedResponse {
+  // The list of Tasks
+  repeated TaskFeed task_feed = 1;
+
+  // Token to retrieve the next page of results, or empty if there are no more
+  // results in the list.
+  string next_page_token = 2;
+}
+
+message AddTaskToFeedRequest {
+  // The task to add to the feed
+  TaskFeed task_feed = 1;
+}
+
+message AddTaskToFeedResponse {
+  // The added task
+  TaskFeed task_feed = 1;
+}
+
+
+message Category {
+  // The unique identifier of the category
+  int32 id = 1 [
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
+
+  // The name of the category
+  string name = 2 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The description of the category
+  string description = 3 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The color of the category
+  string color = 4;
+
+  // The owner of the category
+  User owner = 5 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message User {
+  // The unique identifier of the user
+  int32 id = 1 [
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
+
+  // The name of the user
+  string username = 2 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The email of the user
+  // optional
+  string email = 3;
+
+  // Whether the user is an admin
+  // defaults to false if not specified
+  bool is_admin = 4;
+
+  // Whether the user is a parent
+  // defauls to false if not specified
+  bool is_parent = 5;
+
+  // The avatar of the user
+  string avatar = 6;
+
+  // How many points the user has
+  int32 points = 7 [
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
+
+  // The users password
+  string password = 8 [
+    (google.api.field_behavior) = INPUT_ONLY
+  ];
+
+  // An optional pin, to be used instead of username/password
+  int32 pin = 10;
+
+  // Whether the user is active
+  bool is_active = 11 [
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
+}
+
+message Task {
+  // The unique identifier of the task
+  int32 id = 1 [
+    (google.api.field_behavior) = OUTPUT_ONLY
+  ];
+
+  // The name of the task
+  string name = 2 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The description of the task
+  string description = 3;
+
+  // How many points this task is worth
+  int32 points = 4 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // Whether the task is repeatable
+  // defaults to false if not specified
+  bool is_repeatable = 5;
+
+  // Category details for the task
+  Category category = 6 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // Assignee details for the task
+  User assignee = 7 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message TaskFeed {
+  // The unique identifier of the task feed
+  int32 id = 1;
+
+  // The associated Task
+  Task task = 2;
+
+  // Whether the task is complete
+  bool is_complete = 3;
+
+  // Whether the task has been approved as completed
+  bool is_approved = 4;
+
+  // When the task was completed
+  google.protobuf.Timestamp completed_at = 5;
+
+  // How many points the task is worth (will either be the same as task or an override value)
+  int32 points = 6;
+
+  // Who the task is assigned to
+  User assignee_id = 7;
+}
