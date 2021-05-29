@@ -6,7 +6,7 @@ import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
 import "google/protobuf/timestamp.proto";
 
-option go_package = "github.com/choreRewards/api/chorerewards/v1alpha1;chorerewardsv1alpha1";
+option go_package = "github.com/chorerewards/api/chorerewards/v1alpha1;chorerewardsv1alpha1";
 
 service ChoreRewardsService {
   // ListUsers
