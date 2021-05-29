@@ -1,0 +1,8 @@
+proto_outdir = "./third_party/proto"
+
+[[dependencies]]
+  target = "github.com/googleapis/api-common-protos"
+  revision = "be41e82ef4af6406b4cf331af00a837f813c0c3b"
+  branch = ""
+  path = ""
+  protocol = ""
