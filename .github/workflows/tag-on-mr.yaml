@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - test-github-action
 jobs:
   Release-Tag:
     runs-on: ubuntu-latest
@@ -16,4 +17,5 @@ jobs:
           # run script
           # TODO - Figure out how to use the MR to pass through whether version should be major/minor/patch
           # For now - just hardcode patch
-          "${GITHUB_WORKSPACE}/tag.sh -v patch"
+          ls "${GITHUB_WORKSPACE}"
+          "${GITHUB_WORKSPACE}/tag.sh" -v patch
