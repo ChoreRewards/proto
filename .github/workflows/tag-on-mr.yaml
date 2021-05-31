@@ -8,7 +8,7 @@ jobs:
   Release-Tag:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
@@ -17,6 +17,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # run script
+          git describe --abbrev=0 --tags
           # TODO - Figure out how to use the MR to pass through whether version should be major/minor/patch
           # For now - just hardcode patch
           "${GITHUB_WORKSPACE}/tag.sh" -v patch
