@@ -4,7 +4,7 @@ on:
     branches:
       - main
 jobs:
-  Release-Tag
+  Release-Tag:
     runs-on: ubuntu-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
