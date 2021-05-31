@@ -7,13 +7,19 @@ jobs:
   Release-Tag:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+        with:
+          # Number of commits to fetch. 0 indicates all history for all branches and tags.
+          # This makes the "git describe --abbrev=0 --tags" command work for auto-tagging
+          fetch-depth: 0
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: Release new tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # run script
           # TODO - Figure out how to use the MR to pass through whether version should be major/minor/patch
           # For now - just hardcode patch
-          "${GITHUB_WORKSPACE}/tag.sh -v patch"
+          "${GITHUB_WORKSPACE}/tag.sh" -v patch
