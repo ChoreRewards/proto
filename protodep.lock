@@ -6,3 +6,17 @@ proto_outdir = "./third_party/proto"
   branch = ""
   path = ""
   protocol = ""
+
+[[dependencies]]
+  target = "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-openapiv2"
+  revision = "bcc34ef50bda81faae5d4bbfca2e7ea8fe4700c8"
+  branch = ""
+  path = "protoc-gen-openapiv2"
+  protocol = ""
+
+[[dependencies]]
+  target = "github.com/envoyproxy/protoc-gen-validate/validate"
+  revision = "beba99e6f6dddee76f42751d2959d33a0775f324"
+  branch = ""
+  path = "protoc-gen-validate/validate"
+  protocol = ""

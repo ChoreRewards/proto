@@ -1,8 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "chorerewards/v1alpha1/chorerewards.proto",
-    "version": "version not set"
+    "title": "ChoreRewards API",
+    "version": "1.0-alpha"
   },
   "tags": [
     {
