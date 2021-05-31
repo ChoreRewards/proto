@@ -5,8 +5,20 @@ package chorerewards.v1alpha1;
 import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
 import "google/protobuf/timestamp.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "protoc-gen-validate/validate/validate.proto";
 
 option go_package = "github.com/chorerewards/api/chorerewards/v1alpha1;chorerewardsv1alpha1";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "ChoreRewards API";
+    version: "1.0-alpha";
+  };
+  consumes: "application/json";
+  produces: "application/json";
+};
+
 
 service ChoreRewardsService {
   // ListUsers

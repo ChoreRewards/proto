@@ -3,3 +3,13 @@ proto_outdir = "./third_party/proto"
 [[dependencies]]
   target = "github.com/googleapis/api-common-protos"
   revision = "be41e82ef4af6406b4cf331af00a837f813c0c3bj"
+
+[[dependencies]]
+  target = "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-openapiv2"
+  revision = "v2.3.0"
+  path = "protoc-gen-openapiv2"
+
+[[dependencies]]
+  target = "github.com/envoyproxy/protoc-gen-validate/validate"
+  revision = "v0.4.0"
+  path = "protoc-gen-validate/validate"

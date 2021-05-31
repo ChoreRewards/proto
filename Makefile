@@ -162,6 +162,9 @@ $(PROTO_GOS) $(PROTO_GOS_GRPC): $(PROTO_DEFS)
 	$(eval PROTO := $(patsubst $(PROTOS_BASE_DIR)/%.proto,%.proto,$(PROTO_DEF)))
 	buf build -o - | protoc --descriptor_set_in=/dev/stdin $(PROTOC_GO_OPT) $(PROTOC_GRPC_GATEWAY_OPT) $(PROTOC_OPENAPI_OPT) $(PROTOC_VALIDATE_OPT) $(PROTO)
 
+# Plugins string for go builds (must end in ':')
+PROTOC_GO_PLUGINS := plugins=grpc:
+
 # Options string appended to go build command
 PROTOC_GO_OPT := --go_out=$(PROTOC_GO_PLUGINS)$(PROTOS_OUT_DIR) --go_opt=paths=source_relative
 
