@@ -21,6 +21,18 @@ CACHE_VERSIONS := $(CACHE)/versions
 # We do some temporary work here
 CACHE_TMP := $(CACHE_BASE)/tmp
 
+# Go tools require that this be set
+ifndef GOPATH
+	export GOPATH=$(shell go env GOPATH)
+endif
+
+# Update the $PATH so we can use buf and protoc directly
+export PATH := $(abspath $(CACHE_BIN)):$(abspath $(GOPATH)/bin):$(PATH)
+# Update GOBIN to point to CACHE_BIN for source installations
+export GOBIN := $(abspath $(CACHE_BIN))
+# This is needed to allow versions to be added to Golang modules with go get
+export GO111MODULE := on
+
 
 #--------------------------------------
 # -> Versions
@@ -28,11 +40,12 @@ CACHE_TMP := $(CACHE_BASE)/tmp
 
 # This controls the version of buf to install and use.
 BUF_VERSION := 0.19.1
-PROTOC_VERSION := 3.12.3
-PROTOC_GEN_GO_VERSION := v1.4.2
-PROTOC_GEN_GRPC_GATEWAY_VERSION := v2.3.0
-PROTOC_GEN_OPENAPI_VERSION := v2.3.0
-PROTOC_GEN_VALIDATE_VERSION := v0.4.0
+PROTOC_VERSION := 3.15.2
+PROTOC_GEN_GO_VERSION := v1.26.0
+PROTOC_GEN_GO_GRPC_VERSION := v1.0.0
+PROTOC_GEN_GRPC_GATEWAY_VERSION := v2.4.0
+PROTOC_GEN_OPENAPI_VERSION := v2.4.0
+PROTOC_GEN_VALIDATE_VERSION := v0.6.1
 PROTODEP_VERSION := 0.1.3
 
 #--------------------------------------
@@ -72,11 +85,21 @@ PROTOC_GEN_GO := $(CACHE_VERSIONS)/protoc-gen-go/$(PROTOC_GEN_GO_VERSION)
 $(PROTOC_GEN_GO):
 	$(eval BUF_TMP := $(shell mktemp -d))
 	cd $(BUF_TMP); \
-	  go get github.com/golang/protobuf/protoc-gen-go@$(PROTOC_GEN_GO_VERSION)
+	  go get google.golang.org/protobuf/cmd/protoc-gen-go@$(PROTOC_GEN_GO_VERSION)
 	@rm -rf $(BUF_TMP)
 	@rm -rf $(dir $(PROTOC_GEN_GO))
 	@mkdir -p $(dir $(PROTOC_GEN_GO))
 	@touch $(PROTOC_GEN_GO)
+
+PROTOC_GEN_GO_GRPC := $(CACHE_VERSIONS)/protoc-gen-go-grpc/$(PROTOC_GEN_GO_GRPC_VERSION)
+$(PROTOC_GEN_GO_GRPC):
+	$(eval BUF_TMP := $(shell mktemp -d))
+	cd $(BUF_TMP); \
+	  go get google.golang.org/grpc/cmd/protoc-gen-go-grpc@$(PROTOC_GEN_GO_GRPC_VERSION)
+	@rm -rf $(BUF_TMP)
+	@rm -rf $(dir $(PROTOC_GEN_GO_GRPC))
+	@mkdir -p $(dir $(PROTOC_GEN_GO_GRPC))
+	@touch $(PROTOC_GEN_GO_GRPC)
 
 PROTOC_GEN_GRPC_GATEWAY := $(CACHE_VERSIONS)/protoc-gen-grpc-gateway/$(PROTOC_GEN_GRPC_GATEWAY_VERSION)
 $(PROTOC_GEN_GRPC_GATEWAY):
@@ -121,7 +144,7 @@ $(PROTODEP):
 
 # deps allows us to install deps without running any checks.
 .PHONY: deps
-deps: $(BUF) $(PROTOC) $(PROTOC_GEN_GO) $(PROTOC_GEN_GRPC_GATEWAY) $(PROTOC_GEN_OPENAPI) $(PROTOC_GEN_VALIDATE) $(PROTODEP)
+deps: $(BUF) $(PROTOC) $(PROTOC_GEN_GO) $(PROTOC_GEN_GO_GRPC) $(PROTOC_GEN_GRPC_GATEWAY) $(PROTOC_GEN_OPENAPI) $(PROTOC_GEN_VALIDATE) $(PROTODEP)
 
 #--------------------------------------
 # -> Third-Party Dependencies
@@ -147,26 +170,34 @@ OPENAPI_OUT_DIR := .
 EXCLUDE := -path ./third_party -prune -o
 PROTO_DEFS := $(shell find $(PROTOS_BASE_DIR) $(EXCLUDE) -type f -name '*.proto' -print)
 PROTO_GOS := $(patsubst $(PROTOS_BASE_DIR)/%.proto,$(PROTOS_OUT_DIR)/%.pb.go,$(PROTO_DEFS))
-PROTO_GOS_GRPC := $(patsubst %.pb.go,%.pb.gw.go,$(PROTO_GOS))
+PROTO_GOS_GRPC := $(patsubst %.pb.go,%_grpc.pb.go,$(PROTO_GOS))
+PROTO_GOS_GATEWAY := $(patsubst %.pb.go,%.pb.gw.go,$(PROTO_GOS))
+PROTO_GOS_OPENAPI := $(patsubst $(PROTOS_BASE_DIR)/%.proto,$(OPENAPI_OUT_DIR)/%.swagger.json,$(PROTO_DEFS))
+PROTO_GOS_VALIDATE := $(patsubst %.pb.go,%.pb.validate.go,$(PROTO_GOS))
 
 # protos triggers generation for all protos
 .PHONY: protos
-protos: $(BUF) $(PROTO_GOS)
+protos: deps $(PROTO_GOS)
 
 # regenerate the *.pb.go files whenever the source protos change
+# regenerate the *_grpc.pb.go files whenever the source protos change
 # regenerate the *.pb.gw.go files whenever the source protos change
 # regenerate the *.swagger.json files whenever the source protos change
-$(PROTO_GOS) $(PROTO_GOS_GRPC): $(PROTO_DEFS)
+# regenerate the *.pb.validate.go files whenever the source protos change
+$(PROTO_GOS) $(PROTO_GOS_GRPC) $(PROTO_GOS_GATEWAY) $(PROTO_GOS_OPENAPI) $(PROTO_GOS_VALIDATE): $(PROTO_DEFS)
 	$(eval PROTO_DEF := $(filter $(PROTOS_BASE_DIR)/$(@D)/%.proto,$(^)))
 	@echo "🤖 Generating ${@} from $(PROTO_DEF)"
 	$(eval PROTO := $(patsubst $(PROTOS_BASE_DIR)/%.proto,%.proto,$(PROTO_DEF)))
-	buf build -o - | protoc --descriptor_set_in=/dev/stdin $(PROTOC_GO_OPT) $(PROTOC_GRPC_GATEWAY_OPT) $(PROTOC_OPENAPI_OPT) $(PROTOC_VALIDATE_OPT) $(PROTO)
+	buf image build -o - | protoc --descriptor_set_in=/dev/stdin $(PROTOC_GO_OPT) $(PROTOC_GO_GRPC_OPT) $(PROTOC_GRPC_GATEWAY_OPT) $(PROTOC_OPENAPI_OPT) $(PROTOC_VALIDATE_OPT) $(PROTO)
 
 # Plugins string for go builds (must end in ':')
 PROTOC_GO_PLUGINS := plugins=grpc:
 
-# Options string appended to go build command
-PROTOC_GO_OPT := --go_out=$(PROTOC_GO_PLUGINS)$(PROTOS_OUT_DIR) --go_opt=paths=source_relative
+# Options string appended to the protoc-gen-go command
+PROTOC_GO_OPT := --go_out=paths=source_relative:$(PROTOS_OUT_DIR)
+
+# Options string appended to the protoc-gen-go-grpc build command
+PROTOC_GO_GRPC_OPT := --go-grpc_out=paths=source_relative,require_unimplemented_servers=false:$(PROTOS_OUT_DIR)
 
 # Options string appended to grpc-gateway build command
 PROTOC_GRPC_GATEWAY_OPT := --grpc-gateway_out=logtostderr=true,paths=source_relative:$(PROTOS_OUT_DIR)
