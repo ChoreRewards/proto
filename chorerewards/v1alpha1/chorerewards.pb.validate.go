@@ -1370,6 +1370,8 @@ func (m *User) Validate() error {
 
 	// no validation rules for Password
 
+	// no validation rules for Salt
+
 	// no validation rules for Pin
 
 	// no validation rules for IsActive

@@ -270,6 +270,11 @@ message User {
     (google.api.field_behavior) = INPUT_ONLY
   ];
 
+  // The users password
+  string salt = 9 [
+    (google.api.field_behavior) = INPUT_ONLY
+  ];
+
   // An optional pin, to be used instead of username/password
   int32 pin = 10;
 

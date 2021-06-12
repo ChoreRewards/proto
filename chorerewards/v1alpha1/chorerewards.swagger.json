@@ -605,6 +605,10 @@
           "type": "string",
           "title": "The users password"
         },
+        "salt": {
+          "type": "string",
+          "title": "The users password"
+        },
         "pin": {
           "type": "integer",
           "format": "int32",
