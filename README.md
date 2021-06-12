@@ -23,7 +23,6 @@ All third party dependencies should be added to `protodeps.toml` and downloaded 
 
 [protocol-buffers]: https://developers.google.com/protocol-buffers/
 
-
 ## ToDo
 
 * [ ] Add `rewards` endpoints
