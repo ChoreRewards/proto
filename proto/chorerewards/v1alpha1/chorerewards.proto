@@ -96,6 +96,16 @@ service ChoreRewardsService {
       body: "task_feed"
     };
   }
+
+  // Login
+  //
+  // Authenticates and provides a auth token if successful
+  rpc Login(LoginRequest) returns (LoginResponse) {
+    option (google.api.http) = {
+      post: "/v1alpha1/login"
+      body: "*"
+    };
+  }
 }
 
 message ListUsersRequest {
@@ -270,16 +280,11 @@ message User {
     (google.api.field_behavior) = INPUT_ONLY
   ];
 
-  // The users password
-  string salt = 9 [
-    (google.api.field_behavior) = INPUT_ONLY
-  ];
-
   // An optional pin, to be used instead of username/password
-  int32 pin = 10;
+  int32 pin = 9;
 
   // Whether the user is active
-  bool is_active = 11 [
+  bool is_active = 10 [
     (google.api.field_behavior) = OUTPUT_ONLY
   ];
 }
@@ -339,4 +344,22 @@ message TaskFeed {
 
   // Who the task is assigned to
   User assignee_id = 7;
+}
+
+message LoginRequest {
+  // The username to login with
+  string username = 1 [
+    (google.api.field_behavior) = REQUIRED
+  ];
+
+  // The users password. Either this or pin must be specified
+  string password = 2;
+
+  // The users pin. Either this or password must be specified
+  int32 pin = 3;
+}
+
+message LoginResponse {
+  // The authentication token
+  string token = 1;
 }
