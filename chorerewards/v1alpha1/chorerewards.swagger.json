@@ -90,6 +90,40 @@
         ]
       }
     },
+    "/v1alpha1/login": {
+      "post": {
+        "summary": "Login",
+        "description": "Authenticates and provides a auth token if successful",
+        "operationId": "Login",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1alpha1LoginResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1alpha1LoginRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ChoreRewardsService"
+        ]
+      }
+    },
     "/v1alpha1/tasks": {
       "get": {
         "summary": "ListTasks",
@@ -481,6 +515,39 @@
         }
       }
     },
+    "v1alpha1LoginRequest": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "title": "The username to login with",
+          "required": [
+            "username"
+          ]
+        },
+        "password": {
+          "type": "string",
+          "title": "The users password. Either this or pin must be specified"
+        },
+        "pin": {
+          "type": "integer",
+          "format": "int32",
+          "title": "The users pin. Either this or password must be specified"
+        }
+      },
+      "required": [
+        "username"
+      ]
+    },
+    "v1alpha1LoginResponse": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "title": "The authentication token"
+        }
+      }
+    },
     "v1alpha1Task": {
       "type": "object",
       "properties": {
@@ -602,10 +669,6 @@
           "readOnly": true
         },
         "password": {
-          "type": "string",
-          "title": "The users password"
-        },
-        "salt": {
           "type": "string",
           "title": "The users password"
         },

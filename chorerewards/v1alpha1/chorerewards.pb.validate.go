@@ -1370,8 +1370,6 @@ func (m *User) Validate() error {
 
 	// no validation rules for Password
 
-	// no validation rules for Salt
-
 	// no validation rules for Pin
 
 	// no validation rules for IsActive
@@ -1628,3 +1626,141 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = TaskFeedValidationError{}
+
+// Validate checks the field values on LoginRequest with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *LoginRequest) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Username
+
+	// no validation rules for Password
+
+	// no validation rules for Pin
+
+	return nil
+}
+
+// LoginRequestValidationError is the validation error returned by
+// LoginRequest.Validate if the designated constraints aren't met.
+type LoginRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e LoginRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e LoginRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e LoginRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e LoginRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e LoginRequestValidationError) ErrorName() string { return "LoginRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e LoginRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sLoginRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = LoginRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = LoginRequestValidationError{}
+
+// Validate checks the field values on LoginResponse with the rules defined in
+// the proto definition for this message. If any rules are violated, an error
+// is returned.
+func (m *LoginResponse) Validate() error {
+	if m == nil {
+		return nil
+	}
+
+	// no validation rules for Token
+
+	return nil
+}
+
+// LoginResponseValidationError is the validation error returned by
+// LoginResponse.Validate if the designated constraints aren't met.
+type LoginResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e LoginResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e LoginResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e LoginResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e LoginResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e LoginResponseValidationError) ErrorName() string { return "LoginResponseValidationError" }
+
+// Error satisfies the builtin error interface
+func (e LoginResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sLoginResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = LoginResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = LoginResponseValidationError{}

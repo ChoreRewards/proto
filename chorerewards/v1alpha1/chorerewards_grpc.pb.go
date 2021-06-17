@@ -49,6 +49,10 @@ type ChoreRewardsServiceClient interface {
 	//
 	// Adds a Task to the TaskFeed
 	AddTaskToFeed(ctx context.Context, in *AddTaskToFeedRequest, opts ...grpc.CallOption) (*AddTaskToFeedResponse, error)
+	// Login
+	//
+	// Authenticates and provides a auth token if successful
+	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
 }
 
 type choreRewardsServiceClient struct {
@@ -131,6 +135,15 @@ func (c *choreRewardsServiceClient) AddTaskToFeed(ctx context.Context, in *AddTa
 	return out, nil
 }
 
+func (c *choreRewardsServiceClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error) {
+	out := new(LoginResponse)
+	err := c.cc.Invoke(ctx, "/chorerewards.v1alpha1.ChoreRewardsService/Login", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ChoreRewardsServiceServer is the server API for ChoreRewardsService service.
 // All implementations should embed UnimplementedChoreRewardsServiceServer
 // for forward compatibility
@@ -167,6 +180,10 @@ type ChoreRewardsServiceServer interface {
 	//
 	// Adds a Task to the TaskFeed
 	AddTaskToFeed(context.Context, *AddTaskToFeedRequest) (*AddTaskToFeedResponse, error)
+	// Login
+	//
+	// Authenticates and provides a auth token if successful
+	Login(context.Context, *LoginRequest) (*LoginResponse, error)
 }
 
 // UnimplementedChoreRewardsServiceServer should be embedded to have forward compatible implementations.
@@ -196,6 +213,9 @@ func (UnimplementedChoreRewardsServiceServer) CreateTask(context.Context, *Creat
 }
 func (UnimplementedChoreRewardsServiceServer) AddTaskToFeed(context.Context, *AddTaskToFeedRequest) (*AddTaskToFeedResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddTaskToFeed not implemented")
+}
+func (UnimplementedChoreRewardsServiceServer) Login(context.Context, *LoginRequest) (*LoginResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 }
 
 // UnsafeChoreRewardsServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -353,6 +373,24 @@ func _ChoreRewardsService_AddTaskToFeed_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ChoreRewardsService_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoginRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ChoreRewardsServiceServer).Login(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/chorerewards.v1alpha1.ChoreRewardsService/Login",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ChoreRewardsServiceServer).Login(ctx, req.(*LoginRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _ChoreRewardsService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "chorerewards.v1alpha1.ChoreRewardsService",
 	HandlerType: (*ChoreRewardsServiceServer)(nil),
@@ -388,6 +426,10 @@ var _ChoreRewardsService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AddTaskToFeed",
 			Handler:    _ChoreRewardsService_AddTaskToFeed_Handler,
+		},
+		{
+			MethodName: "Login",
+			Handler:    _ChoreRewardsService_Login_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
