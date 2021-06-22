@@ -45,8 +45,6 @@ func (m *ListUsersRequest) Validate() error {
 
 	// no validation rules for PageToken
 
-	// no validation rules for AuthToken
-
 	return nil
 }
 
@@ -354,8 +352,6 @@ func (m *ListCategoriesRequest) Validate() error {
 
 	// no validation rules for PageToken
 
-	// no validation rules for AuthToken
-
 	return nil
 }
 
@@ -517,8 +513,6 @@ func (m *CreateCategoryRequest) Validate() error {
 		}
 	}
 
-	// no validation rules for AuthToken
-
 	return nil
 }
 
@@ -666,8 +660,6 @@ func (m *ListTasksRequest) Validate() error {
 	// no validation rules for PageSize
 
 	// no validation rules for PageToken
-
-	// no validation rules for AuthToken
 
 	return nil
 }
@@ -828,8 +820,6 @@ func (m *CreateTaskRequest) Validate() error {
 		}
 	}
 
-	// no validation rules for AuthToken
-
 	return nil
 }
 
@@ -977,8 +967,6 @@ func (m *ListTasksFeedRequest) Validate() error {
 	// no validation rules for PageSize
 
 	// no validation rules for PageToken
-
-	// no validation rules for AuthToken
 
 	return nil
 }
@@ -1140,8 +1128,6 @@ func (m *AddTaskToFeedRequest) Validate() error {
 			}
 		}
 	}
-
-	// no validation rules for AuthToken
 
 	return nil
 }

@@ -50,13 +50,6 @@
             "in": "query",
             "required": false,
             "type": "string"
-          },
-          {
-            "name": "auth_token",
-            "description": "The token returned from Login.",
-            "in": "query",
-            "required": false,
-            "type": "string"
           }
         ],
         "tags": [
@@ -90,13 +83,6 @@
             "schema": {
               "$ref": "#/definitions/v1alpha1Category"
             }
-          },
-          {
-            "name": "auth_token",
-            "description": "The token returned from Login.",
-            "in": "query",
-            "required": false,
-            "type": "string"
           }
         ],
         "tags": [
@@ -172,13 +158,6 @@
             "in": "query",
             "required": false,
             "type": "string"
-          },
-          {
-            "name": "auth_token",
-            "description": "The token returned from Login.",
-            "in": "query",
-            "required": false,
-            "type": "string"
           }
         ],
         "tags": [
@@ -212,13 +191,6 @@
             "schema": {
               "$ref": "#/definitions/v1alpha1Task"
             }
-          },
-          {
-            "name": "auth_token",
-            "description": "The token returned from Login.",
-            "in": "query",
-            "required": false,
-            "type": "string"
           }
         ],
         "tags": [
@@ -260,13 +232,6 @@
             "in": "query",
             "required": false,
             "type": "string"
-          },
-          {
-            "name": "auth_token",
-            "description": "The token returned from Login.",
-            "in": "query",
-            "required": false,
-            "type": "string"
           }
         ],
         "tags": [
@@ -300,13 +265,6 @@
             "schema": {
               "$ref": "#/definitions/v1alpha1TaskFeed"
             }
-          },
-          {
-            "name": "auth_token",
-            "description": "The token returned from Login.",
-            "in": "query",
-            "required": false,
-            "type": "string"
           }
         ],
         "tags": [
@@ -345,13 +303,6 @@
           {
             "name": "page_token",
             "description": "The next_page_token value returned from a previous List request, if any.",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "auth_token",
-            "description": "The token returned from Login.",
             "in": "query",
             "required": false,
             "type": "string"

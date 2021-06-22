@@ -209,10 +209,6 @@ func local_request_ChoreRewardsService_CreateUser_0(ctx context.Context, marshal
 
 }
 
-var (
-	filter_ChoreRewardsService_CreateCategory_0 = &utilities.DoubleArray{Encoding: map[string]int{"category": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
-)
-
 func request_ChoreRewardsService_CreateCategory_0(ctx context.Context, marshaler runtime.Marshaler, client ChoreRewardsServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq CreateCategoryRequest
 	var metadata runtime.ServerMetadata
@@ -222,13 +218,6 @@ func request_ChoreRewardsService_CreateCategory_0(ctx context.Context, marshaler
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
 	}
 	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.Category); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ChoreRewardsService_CreateCategory_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -249,21 +238,10 @@ func local_request_ChoreRewardsService_CreateCategory_0(ctx context.Context, mar
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ChoreRewardsService_CreateCategory_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
 	msg, err := server.CreateCategory(ctx, &protoReq)
 	return msg, metadata, err
 
 }
-
-var (
-	filter_ChoreRewardsService_CreateTask_0 = &utilities.DoubleArray{Encoding: map[string]int{"task": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
-)
 
 func request_ChoreRewardsService_CreateTask_0(ctx context.Context, marshaler runtime.Marshaler, client ChoreRewardsServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq CreateTaskRequest
@@ -274,13 +252,6 @@ func request_ChoreRewardsService_CreateTask_0(ctx context.Context, marshaler run
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
 	}
 	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.Task); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ChoreRewardsService_CreateTask_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -301,21 +272,10 @@ func local_request_ChoreRewardsService_CreateTask_0(ctx context.Context, marshal
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ChoreRewardsService_CreateTask_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
 	msg, err := server.CreateTask(ctx, &protoReq)
 	return msg, metadata, err
 
 }
-
-var (
-	filter_ChoreRewardsService_AddTaskToFeed_0 = &utilities.DoubleArray{Encoding: map[string]int{"task_feed": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
-)
 
 func request_ChoreRewardsService_AddTaskToFeed_0(ctx context.Context, marshaler runtime.Marshaler, client ChoreRewardsServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq AddTaskToFeedRequest
@@ -326,13 +286,6 @@ func request_ChoreRewardsService_AddTaskToFeed_0(ctx context.Context, marshaler 
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
 	}
 	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.TaskFeed); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ChoreRewardsService_AddTaskToFeed_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -350,13 +303,6 @@ func local_request_ChoreRewardsService_AddTaskToFeed_0(ctx context.Context, mars
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
 	}
 	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq.TaskFeed); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_ChoreRewardsService_AddTaskToFeed_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 

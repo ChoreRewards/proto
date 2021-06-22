@@ -114,9 +114,6 @@ message ListUsersRequest {
 
   // The next_page_token value returned from a previous List request, if any.
   string page_token = 2;
-
-  // The token returned from Login
-  string auth_token = 3;
 }
 
 message ListUsersResponse {
@@ -145,9 +142,6 @@ message ListCategoriesRequest {
 
   // The next_page_token value returned from a previous List request, if any.
   string page_token = 2;
-
-  // The token returned from Login
-  string auth_token = 3;
 }
 
 message ListCategoriesResponse {
@@ -162,9 +156,6 @@ message ListCategoriesResponse {
 message CreateCategoryRequest {
   // The category to create
   Category category = 1;
-
-  // The token returned from Login
-  string auth_token = 2;
 }
 
 message CreateCategoryResponse {
@@ -179,9 +170,6 @@ message ListTasksRequest {
 
   // The next_page_token value returned from a previous List request, if any.
   string page_token = 2;
-
-  // The token returned from Login
-  string auth_token = 3;
 }
 
 message ListTasksResponse {
@@ -196,9 +184,6 @@ message ListTasksResponse {
 message CreateTaskRequest {
   // The task to create
   Task task = 1;
-
-  // The token returned from Login
-  string auth_token = 2;
 }
 
 message CreateTaskResponse {
@@ -212,9 +197,6 @@ message ListTasksFeedRequest {
 
   // The next_page_token value returned from a previous List request, if any.
   string page_token = 2;
-
-  // The token returned from Login
-  string auth_token = 3;
 }
 
 message ListTasksFeedResponse {
@@ -229,9 +211,6 @@ message ListTasksFeedResponse {
 message AddTaskToFeedRequest {
   // The task to add to the feed
   TaskFeed task_feed = 1;
-
-  // The token returned from Login
-  string auth_token = 2;
 }
 
 message AddTaskToFeedResponse {
