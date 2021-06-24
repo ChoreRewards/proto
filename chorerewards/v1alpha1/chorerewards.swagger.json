@@ -35,23 +35,6 @@
             }
           }
         },
-        "parameters": [
-          {
-            "name": "page_size",
-            "description": "The maximum number of items to return.",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "page_token",
-            "description": "The next_page_token value returned from a previous List request, if any.",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
         "tags": [
           "ChoreRewardsService"
         ]
@@ -143,23 +126,6 @@
             }
           }
         },
-        "parameters": [
-          {
-            "name": "page_size",
-            "description": "The maximum number of items to return.",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "page_token",
-            "description": "The next_page_token value returned from a previous List request, if any.",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
         "tags": [
           "ChoreRewardsService"
         ]
@@ -217,23 +183,6 @@
             }
           }
         },
-        "parameters": [
-          {
-            "name": "page_size",
-            "description": "The maximum number of items to return.",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "page_token",
-            "description": "The next_page_token value returned from a previous List request, if any.",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
         "tags": [
           "ChoreRewardsService"
         ]
@@ -291,23 +240,6 @@
             }
           }
         },
-        "parameters": [
-          {
-            "name": "page_size",
-            "description": "The maximum number of items to return.",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "page_token",
-            "description": "The next_page_token value returned from a previous List request, if any.",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
         "tags": [
           "ChoreRewardsService"
         ]
@@ -460,10 +392,6 @@
             "$ref": "#/definitions/v1alpha1Category"
           },
           "title": "The list of Tasks"
-        },
-        "next_page_token": {
-          "type": "string",
-          "description": "Token to retrieve the next page of results, or empty if there are no more\nresults in the list."
         }
       }
     },
@@ -476,10 +404,6 @@
             "$ref": "#/definitions/v1alpha1TaskFeed"
           },
           "title": "The list of Tasks"
-        },
-        "next_page_token": {
-          "type": "string",
-          "description": "Token to retrieve the next page of results, or empty if there are no more\nresults in the list."
         }
       }
     },
@@ -492,10 +416,6 @@
             "$ref": "#/definitions/v1alpha1Task"
           },
           "title": "The list of Tasks"
-        },
-        "next_page_token": {
-          "type": "string",
-          "description": "Token to retrieve the next page of results, or empty if there are no more\nresults in the list."
         }
       }
     },
@@ -508,10 +428,6 @@
             "$ref": "#/definitions/v1alpha1User"
           },
           "title": "The list of Tasks"
-        },
-        "next_page_token": {
-          "type": "string",
-          "description": "Token to retrieve the next page of results, or empty if there are no more\nresults in the list."
         }
       }
     },

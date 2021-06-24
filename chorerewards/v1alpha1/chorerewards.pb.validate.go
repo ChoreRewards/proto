@@ -41,10 +41,6 @@ func (m *ListUsersRequest) Validate() error {
 		return nil
 	}
 
-	// no validation rules for PageSize
-
-	// no validation rules for PageToken
-
 	return nil
 }
 
@@ -124,8 +120,6 @@ func (m *ListUsersResponse) Validate() error {
 		}
 
 	}
-
-	// no validation rules for NextPageToken
 
 	return nil
 }
@@ -348,10 +342,6 @@ func (m *ListCategoriesRequest) Validate() error {
 		return nil
 	}
 
-	// no validation rules for PageSize
-
-	// no validation rules for PageToken
-
 	return nil
 }
 
@@ -433,8 +423,6 @@ func (m *ListCategoriesResponse) Validate() error {
 		}
 
 	}
-
-	// no validation rules for NextPageToken
 
 	return nil
 }
@@ -657,10 +645,6 @@ func (m *ListTasksRequest) Validate() error {
 		return nil
 	}
 
-	// no validation rules for PageSize
-
-	// no validation rules for PageToken
-
 	return nil
 }
 
@@ -740,8 +724,6 @@ func (m *ListTasksResponse) Validate() error {
 		}
 
 	}
-
-	// no validation rules for NextPageToken
 
 	return nil
 }
@@ -964,10 +946,6 @@ func (m *ListTasksFeedRequest) Validate() error {
 		return nil
 	}
 
-	// no validation rules for PageSize
-
-	// no validation rules for PageToken
-
 	return nil
 }
 
@@ -1049,8 +1027,6 @@ func (m *ListTasksFeedResponse) Validate() error {
 		}
 
 	}
-
-	// no validation rules for NextPageToken
 
 	return nil
 }
