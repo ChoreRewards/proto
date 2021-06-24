@@ -108,21 +108,11 @@ service ChoreRewardsService {
   }
 }
 
-message ListUsersRequest {
-  // The maximum number of items to return.
-  int32 page_size = 1;
-
-  // The next_page_token value returned from a previous List request, if any.
-  string page_token = 2;
-}
+message ListUsersRequest {}
 
 message ListUsersResponse {
   // The list of Tasks
   repeated User users = 1;
-
-  // Token to retrieve the next page of results, or empty if there are no more
-  // results in the list.
-  string next_page_token = 2;
 }
 
 message CreateUserRequest {
@@ -136,21 +126,11 @@ message CreateUserResponse {
 }
 
 
-message ListCategoriesRequest {
-  // The maximum number of items to return.
-  int32 page_size = 1;
-
-  // The next_page_token value returned from a previous List request, if any.
-  string page_token = 2;
-}
+message ListCategoriesRequest {}
 
 message ListCategoriesResponse {
   // The list of Tasks
   repeated Category categories = 1;
-
-  // Token to retrieve the next page of results, or empty if there are no more
-  // results in the list.
-  string next_page_token = 2;
 }
 
 message CreateCategoryRequest {
@@ -164,21 +144,11 @@ message CreateCategoryResponse {
 }
 
 
-message ListTasksRequest {
-  // The maximum number of items to return.
-  int32 page_size = 1;
-
-  // The next_page_token value returned from a previous List request, if any.
-  string page_token = 2;
-}
+message ListTasksRequest {}
 
 message ListTasksResponse {
   // The list of Tasks
   repeated Task tasks = 1;
-
-  // Token to retrieve the next page of results, or empty if there are no more
-  // results in the list.
-  string next_page_token = 2;
 }
 
 message CreateTaskRequest {
@@ -191,21 +161,11 @@ message CreateTaskResponse {
   Task task = 1;
 }
 
-message ListTasksFeedRequest {
-  // The maximum number of items to return.
-  int32 page_size = 1;
-
-  // The next_page_token value returned from a previous List request, if any.
-  string page_token = 2;
-}
+message ListTasksFeedRequest {}
 
 message ListTasksFeedResponse {
   // The list of Tasks
   repeated TaskFeed task_feed = 1;
-
-  // Token to retrieve the next page of results, or empty if there are no more
-  // results in the list.
-  string next_page_token = 2;
 }
 
 message AddTaskToFeedRequest {
