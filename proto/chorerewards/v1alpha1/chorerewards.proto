@@ -21,12 +21,13 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 
 
 service ChoreRewardsService {
-  // ListUsers
+  // CreateCategory
   //
-  // Lists Users
-  rpc ListUsers(ListUsersRequest) returns (ListUsersResponse) {
+  // Creates a new Category
+  rpc CreateCategory(CreateCategoryRequest) returns (CreateCategoryResponse) {
     option (google.api.http) = {
-      get: "/v1alpha1/users"
+      post: "/v1alpha1/categories",
+      body: "category"
     };
   }
 
@@ -39,12 +40,32 @@ service ChoreRewardsService {
     };
   }
 
+  // CreateTask
+  //
+  // Creates a new Task
+  rpc CreateTask(CreateTaskRequest) returns (CreateTaskResponse) {
+    option (google.api.http) = {
+      post: "/v1alpha1/tasks"
+      body: "task"
+    };
+  }
+
   // ListTasks
   //
   // Lists Tasks
   rpc ListTasks(ListTasksRequest) returns (ListTasksResponse) {
     option (google.api.http) = {
       get: "/v1alpha1/tasks"
+    };
+  }
+
+  // AddTaskToFeed
+  //
+  // Adds a Task to the TaskFeed
+  rpc AddTaskToFeed(AddTaskToFeedRequest) returns (AddTaskToFeedResponse) {
+    option (google.api.http) = {
+      post: "/v1alpha1/tasks-feed"
+      body: "task_feed"
     };
   }
 
@@ -67,33 +88,12 @@ service ChoreRewardsService {
     };
   }
 
-  // CreateCategory
+  // ListUsers
   //
-  // Creates a new Category
-  rpc CreateCategory(CreateCategoryRequest) returns (CreateCategoryResponse) {
+  // Lists Users
+  rpc ListUsers(ListUsersRequest) returns (ListUsersResponse) {
     option (google.api.http) = {
-      post: "/v1alpha1/categories",
-      body: "category"
-    };
-  }
-
-  // CreateTask
-  //
-  // Creates a new Task
-  rpc CreateTask(CreateTaskRequest) returns (CreateTaskResponse) {
-    option (google.api.http) = {
-      post: "/v1alpha1/tasks"
-      body: "task"
-    };
-  }
-
-  // AddTaskToFeed
-  //
-  // Adds a Task to the TaskFeed
-  rpc AddTaskToFeed(AddTaskToFeedRequest) returns (AddTaskToFeedResponse) {
-    option (google.api.http) = {
-      post: "/v1alpha1/tasks-feed"
-      body: "task_feed"
+      get: "/v1alpha1/users"
     };
   }
 

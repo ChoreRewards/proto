@@ -17,18 +17,26 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ChoreRewardsServiceClient interface {
-	// ListUsers
+	// CreateCategory
 	//
-	// Lists Users
-	ListUsers(ctx context.Context, in *ListUsersRequest, opts ...grpc.CallOption) (*ListUsersResponse, error)
+	// Creates a new Category
+	CreateCategory(ctx context.Context, in *CreateCategoryRequest, opts ...grpc.CallOption) (*CreateCategoryResponse, error)
 	// ListCategories
 	//
 	// Lists Categories
 	ListCategories(ctx context.Context, in *ListCategoriesRequest, opts ...grpc.CallOption) (*ListCategoriesResponse, error)
+	// CreateTask
+	//
+	// Creates a new Task
+	CreateTask(ctx context.Context, in *CreateTaskRequest, opts ...grpc.CallOption) (*CreateTaskResponse, error)
 	// ListTasks
 	//
 	// Lists Tasks
 	ListTasks(ctx context.Context, in *ListTasksRequest, opts ...grpc.CallOption) (*ListTasksResponse, error)
+	// AddTaskToFeed
+	//
+	// Adds a Task to the TaskFeed
+	AddTaskToFeed(ctx context.Context, in *AddTaskToFeedRequest, opts ...grpc.CallOption) (*AddTaskToFeedResponse, error)
 	// ListTasksFeed
 	//
 	// Lists Tasks Feed
@@ -37,18 +45,10 @@ type ChoreRewardsServiceClient interface {
 	//
 	// Creates a new User
 	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
-	// CreateCategory
+	// ListUsers
 	//
-	// Creates a new Category
-	CreateCategory(ctx context.Context, in *CreateCategoryRequest, opts ...grpc.CallOption) (*CreateCategoryResponse, error)
-	// CreateTask
-	//
-	// Creates a new Task
-	CreateTask(ctx context.Context, in *CreateTaskRequest, opts ...grpc.CallOption) (*CreateTaskResponse, error)
-	// AddTaskToFeed
-	//
-	// Adds a Task to the TaskFeed
-	AddTaskToFeed(ctx context.Context, in *AddTaskToFeedRequest, opts ...grpc.CallOption) (*AddTaskToFeedResponse, error)
+	// Lists Users
+	ListUsers(ctx context.Context, in *ListUsersRequest, opts ...grpc.CallOption) (*ListUsersResponse, error)
 	// Login
 	//
 	// Authenticates and provides a auth token if successful
@@ -63,9 +63,9 @@ func NewChoreRewardsServiceClient(cc grpc.ClientConnInterface) ChoreRewardsServi
 	return &choreRewardsServiceClient{cc}
 }
 
-func (c *choreRewardsServiceClient) ListUsers(ctx context.Context, in *ListUsersRequest, opts ...grpc.CallOption) (*ListUsersResponse, error) {
-	out := new(ListUsersResponse)
-	err := c.cc.Invoke(ctx, "/chorerewards.v1alpha1.ChoreRewardsService/ListUsers", in, out, opts...)
+func (c *choreRewardsServiceClient) CreateCategory(ctx context.Context, in *CreateCategoryRequest, opts ...grpc.CallOption) (*CreateCategoryResponse, error) {
+	out := new(CreateCategoryResponse)
+	err := c.cc.Invoke(ctx, "/chorerewards.v1alpha1.ChoreRewardsService/CreateCategory", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -81,9 +81,27 @@ func (c *choreRewardsServiceClient) ListCategories(ctx context.Context, in *List
 	return out, nil
 }
 
+func (c *choreRewardsServiceClient) CreateTask(ctx context.Context, in *CreateTaskRequest, opts ...grpc.CallOption) (*CreateTaskResponse, error) {
+	out := new(CreateTaskResponse)
+	err := c.cc.Invoke(ctx, "/chorerewards.v1alpha1.ChoreRewardsService/CreateTask", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *choreRewardsServiceClient) ListTasks(ctx context.Context, in *ListTasksRequest, opts ...grpc.CallOption) (*ListTasksResponse, error) {
 	out := new(ListTasksResponse)
 	err := c.cc.Invoke(ctx, "/chorerewards.v1alpha1.ChoreRewardsService/ListTasks", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *choreRewardsServiceClient) AddTaskToFeed(ctx context.Context, in *AddTaskToFeedRequest, opts ...grpc.CallOption) (*AddTaskToFeedResponse, error) {
+	out := new(AddTaskToFeedResponse)
+	err := c.cc.Invoke(ctx, "/chorerewards.v1alpha1.ChoreRewardsService/AddTaskToFeed", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -108,27 +126,9 @@ func (c *choreRewardsServiceClient) CreateUser(ctx context.Context, in *CreateUs
 	return out, nil
 }
 
-func (c *choreRewardsServiceClient) CreateCategory(ctx context.Context, in *CreateCategoryRequest, opts ...grpc.CallOption) (*CreateCategoryResponse, error) {
-	out := new(CreateCategoryResponse)
-	err := c.cc.Invoke(ctx, "/chorerewards.v1alpha1.ChoreRewardsService/CreateCategory", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *choreRewardsServiceClient) CreateTask(ctx context.Context, in *CreateTaskRequest, opts ...grpc.CallOption) (*CreateTaskResponse, error) {
-	out := new(CreateTaskResponse)
-	err := c.cc.Invoke(ctx, "/chorerewards.v1alpha1.ChoreRewardsService/CreateTask", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *choreRewardsServiceClient) AddTaskToFeed(ctx context.Context, in *AddTaskToFeedRequest, opts ...grpc.CallOption) (*AddTaskToFeedResponse, error) {
-	out := new(AddTaskToFeedResponse)
-	err := c.cc.Invoke(ctx, "/chorerewards.v1alpha1.ChoreRewardsService/AddTaskToFeed", in, out, opts...)
+func (c *choreRewardsServiceClient) ListUsers(ctx context.Context, in *ListUsersRequest, opts ...grpc.CallOption) (*ListUsersResponse, error) {
+	out := new(ListUsersResponse)
+	err := c.cc.Invoke(ctx, "/chorerewards.v1alpha1.ChoreRewardsService/ListUsers", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -148,18 +148,26 @@ func (c *choreRewardsServiceClient) Login(ctx context.Context, in *LoginRequest,
 // All implementations should embed UnimplementedChoreRewardsServiceServer
 // for forward compatibility
 type ChoreRewardsServiceServer interface {
-	// ListUsers
+	// CreateCategory
 	//
-	// Lists Users
-	ListUsers(context.Context, *ListUsersRequest) (*ListUsersResponse, error)
+	// Creates a new Category
+	CreateCategory(context.Context, *CreateCategoryRequest) (*CreateCategoryResponse, error)
 	// ListCategories
 	//
 	// Lists Categories
 	ListCategories(context.Context, *ListCategoriesRequest) (*ListCategoriesResponse, error)
+	// CreateTask
+	//
+	// Creates a new Task
+	CreateTask(context.Context, *CreateTaskRequest) (*CreateTaskResponse, error)
 	// ListTasks
 	//
 	// Lists Tasks
 	ListTasks(context.Context, *ListTasksRequest) (*ListTasksResponse, error)
+	// AddTaskToFeed
+	//
+	// Adds a Task to the TaskFeed
+	AddTaskToFeed(context.Context, *AddTaskToFeedRequest) (*AddTaskToFeedResponse, error)
 	// ListTasksFeed
 	//
 	// Lists Tasks Feed
@@ -168,18 +176,10 @@ type ChoreRewardsServiceServer interface {
 	//
 	// Creates a new User
 	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
-	// CreateCategory
+	// ListUsers
 	//
-	// Creates a new Category
-	CreateCategory(context.Context, *CreateCategoryRequest) (*CreateCategoryResponse, error)
-	// CreateTask
-	//
-	// Creates a new Task
-	CreateTask(context.Context, *CreateTaskRequest) (*CreateTaskResponse, error)
-	// AddTaskToFeed
-	//
-	// Adds a Task to the TaskFeed
-	AddTaskToFeed(context.Context, *AddTaskToFeedRequest) (*AddTaskToFeedResponse, error)
+	// Lists Users
+	ListUsers(context.Context, *ListUsersRequest) (*ListUsersResponse, error)
 	// Login
 	//
 	// Authenticates and provides a auth token if successful
@@ -190,14 +190,20 @@ type ChoreRewardsServiceServer interface {
 type UnimplementedChoreRewardsServiceServer struct {
 }
 
-func (UnimplementedChoreRewardsServiceServer) ListUsers(context.Context, *ListUsersRequest) (*ListUsersResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListUsers not implemented")
+func (UnimplementedChoreRewardsServiceServer) CreateCategory(context.Context, *CreateCategoryRequest) (*CreateCategoryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateCategory not implemented")
 }
 func (UnimplementedChoreRewardsServiceServer) ListCategories(context.Context, *ListCategoriesRequest) (*ListCategoriesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListCategories not implemented")
 }
+func (UnimplementedChoreRewardsServiceServer) CreateTask(context.Context, *CreateTaskRequest) (*CreateTaskResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateTask not implemented")
+}
 func (UnimplementedChoreRewardsServiceServer) ListTasks(context.Context, *ListTasksRequest) (*ListTasksResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListTasks not implemented")
+}
+func (UnimplementedChoreRewardsServiceServer) AddTaskToFeed(context.Context, *AddTaskToFeedRequest) (*AddTaskToFeedResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddTaskToFeed not implemented")
 }
 func (UnimplementedChoreRewardsServiceServer) ListTasksFeed(context.Context, *ListTasksFeedRequest) (*ListTasksFeedResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListTasksFeed not implemented")
@@ -205,14 +211,8 @@ func (UnimplementedChoreRewardsServiceServer) ListTasksFeed(context.Context, *Li
 func (UnimplementedChoreRewardsServiceServer) CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
 }
-func (UnimplementedChoreRewardsServiceServer) CreateCategory(context.Context, *CreateCategoryRequest) (*CreateCategoryResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateCategory not implemented")
-}
-func (UnimplementedChoreRewardsServiceServer) CreateTask(context.Context, *CreateTaskRequest) (*CreateTaskResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateTask not implemented")
-}
-func (UnimplementedChoreRewardsServiceServer) AddTaskToFeed(context.Context, *AddTaskToFeedRequest) (*AddTaskToFeedResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddTaskToFeed not implemented")
+func (UnimplementedChoreRewardsServiceServer) ListUsers(context.Context, *ListUsersRequest) (*ListUsersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListUsers not implemented")
 }
 func (UnimplementedChoreRewardsServiceServer) Login(context.Context, *LoginRequest) (*LoginResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
@@ -229,20 +229,20 @@ func RegisterChoreRewardsServiceServer(s *grpc.Server, srv ChoreRewardsServiceSe
 	s.RegisterService(&_ChoreRewardsService_serviceDesc, srv)
 }
 
-func _ChoreRewardsService_ListUsers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListUsersRequest)
+func _ChoreRewardsService_CreateCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateCategoryRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ChoreRewardsServiceServer).ListUsers(ctx, in)
+		return srv.(ChoreRewardsServiceServer).CreateCategory(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/chorerewards.v1alpha1.ChoreRewardsService/ListUsers",
+		FullMethod: "/chorerewards.v1alpha1.ChoreRewardsService/CreateCategory",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ChoreRewardsServiceServer).ListUsers(ctx, req.(*ListUsersRequest))
+		return srv.(ChoreRewardsServiceServer).CreateCategory(ctx, req.(*CreateCategoryRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -265,6 +265,24 @@ func _ChoreRewardsService_ListCategories_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ChoreRewardsService_CreateTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateTaskRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ChoreRewardsServiceServer).CreateTask(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/chorerewards.v1alpha1.ChoreRewardsService/CreateTask",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ChoreRewardsServiceServer).CreateTask(ctx, req.(*CreateTaskRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _ChoreRewardsService_ListTasks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListTasksRequest)
 	if err := dec(in); err != nil {
@@ -279,6 +297,24 @@ func _ChoreRewardsService_ListTasks_Handler(srv interface{}, ctx context.Context
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ChoreRewardsServiceServer).ListTasks(ctx, req.(*ListTasksRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ChoreRewardsService_AddTaskToFeed_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddTaskToFeedRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ChoreRewardsServiceServer).AddTaskToFeed(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/chorerewards.v1alpha1.ChoreRewardsService/AddTaskToFeed",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ChoreRewardsServiceServer).AddTaskToFeed(ctx, req.(*AddTaskToFeedRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -319,56 +355,20 @@ func _ChoreRewardsService_CreateUser_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ChoreRewardsService_CreateCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateCategoryRequest)
+func _ChoreRewardsService_ListUsers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListUsersRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ChoreRewardsServiceServer).CreateCategory(ctx, in)
+		return srv.(ChoreRewardsServiceServer).ListUsers(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/chorerewards.v1alpha1.ChoreRewardsService/CreateCategory",
+		FullMethod: "/chorerewards.v1alpha1.ChoreRewardsService/ListUsers",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ChoreRewardsServiceServer).CreateCategory(ctx, req.(*CreateCategoryRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ChoreRewardsService_CreateTask_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateTaskRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ChoreRewardsServiceServer).CreateTask(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/chorerewards.v1alpha1.ChoreRewardsService/CreateTask",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ChoreRewardsServiceServer).CreateTask(ctx, req.(*CreateTaskRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ChoreRewardsService_AddTaskToFeed_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddTaskToFeedRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ChoreRewardsServiceServer).AddTaskToFeed(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/chorerewards.v1alpha1.ChoreRewardsService/AddTaskToFeed",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ChoreRewardsServiceServer).AddTaskToFeed(ctx, req.(*AddTaskToFeedRequest))
+		return srv.(ChoreRewardsServiceServer).ListUsers(ctx, req.(*ListUsersRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -396,16 +396,24 @@ var _ChoreRewardsService_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*ChoreRewardsServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "ListUsers",
-			Handler:    _ChoreRewardsService_ListUsers_Handler,
+			MethodName: "CreateCategory",
+			Handler:    _ChoreRewardsService_CreateCategory_Handler,
 		},
 		{
 			MethodName: "ListCategories",
 			Handler:    _ChoreRewardsService_ListCategories_Handler,
 		},
 		{
+			MethodName: "CreateTask",
+			Handler:    _ChoreRewardsService_CreateTask_Handler,
+		},
+		{
 			MethodName: "ListTasks",
 			Handler:    _ChoreRewardsService_ListTasks_Handler,
+		},
+		{
+			MethodName: "AddTaskToFeed",
+			Handler:    _ChoreRewardsService_AddTaskToFeed_Handler,
 		},
 		{
 			MethodName: "ListTasksFeed",
@@ -416,16 +424,8 @@ var _ChoreRewardsService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _ChoreRewardsService_CreateUser_Handler,
 		},
 		{
-			MethodName: "CreateCategory",
-			Handler:    _ChoreRewardsService_CreateCategory_Handler,
-		},
-		{
-			MethodName: "CreateTask",
-			Handler:    _ChoreRewardsService_CreateTask_Handler,
-		},
-		{
-			MethodName: "AddTaskToFeed",
-			Handler:    _ChoreRewardsService_AddTaskToFeed_Handler,
+			MethodName: "ListUsers",
+			Handler:    _ChoreRewardsService_ListUsers_Handler,
 		},
 		{
 			MethodName: "Login",
