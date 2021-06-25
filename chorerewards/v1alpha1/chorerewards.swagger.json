@@ -345,10 +345,6 @@
         "color": {
           "type": "string",
           "title": "The color of the category"
-        },
-        "owner": {
-          "$ref": "#/definitions/v1alpha1User",
-          "title": "The owner of the category"
         }
       },
       "required": [

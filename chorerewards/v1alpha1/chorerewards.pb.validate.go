@@ -1394,16 +1394,6 @@ func (m *Category) Validate() error {
 
 	// no validation rules for Color
 
-	if v, ok := interface{}(m.GetOwner()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return CategoryValidationError{
-				field:  "Owner",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
 	return nil
 }
 

@@ -214,11 +214,6 @@ message Category {
 
   // The color of the category
   string color = 4;
-
-  // The owner of the category
-  User owner = 5 [
-    (google.api.field_behavior) = REQUIRED
-  ];
 }
 
 message User {
