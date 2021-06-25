@@ -165,6 +165,12 @@ message CreateTaskRequest {
 message CreateTaskResponse {
   // The created task
   Task task = 1;
+
+  // The unique identifier of the associated Category
+  int32 category_id = 2;
+
+  // The unique identifier of the default asignee
+  int32 assignee_id = 3;
 }
 
 message ListTasksFeedRequest {}

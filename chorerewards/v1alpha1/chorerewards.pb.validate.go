@@ -883,6 +883,10 @@ func (m *CreateTaskResponse) Validate() error {
 		}
 	}
 
+	// no validation rules for CategoryId
+
+	// no validation rules for AssigneeId
+
 	return nil
 }
 

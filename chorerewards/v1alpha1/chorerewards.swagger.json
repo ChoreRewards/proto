@@ -383,6 +383,16 @@
         "task": {
           "$ref": "#/definitions/v1alpha1Task",
           "title": "The created task"
+        },
+        "category_id": {
+          "type": "integer",
+          "format": "int32",
+          "title": "The unique identifier of the associated Category"
+        },
+        "assignee_id": {
+          "type": "integer",
+          "format": "int32",
+          "title": "The unique identifier of the default asignee"
         }
       }
     },
