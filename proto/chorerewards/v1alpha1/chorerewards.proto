@@ -154,6 +154,12 @@ message ListTasksResponse {
 message CreateTaskRequest {
   // The task to create
   Task task = 1;
+
+  // The unique identifier of the associated Category
+  int32 category_id = 2;
+
+  // The unique identifier of the default asignee
+  int32 assignee_id = 3;
 }
 
 message CreateTaskResponse {
@@ -283,24 +289,14 @@ message Task {
   // Whether the task is repeatable
   // defaults to false if not specified
   bool is_repeatable = 5;
-
-  // Category details for the task
-  Category category = 6 [
-    (google.api.field_behavior) = REQUIRED
-  ];
-
-  // Assignee details for the task
-  User assignee = 7 [
-    (google.api.field_behavior) = REQUIRED
-  ];
 }
 
 message TaskFeed {
   // The unique identifier of the task feed
   int32 id = 1;
 
-  // The associated Task
-  Task task = 2;
+  // The unique identifier of the associated Task
+  int32 task_id = 2;
 
   // Whether the task is complete
   bool is_complete = 3;
@@ -314,7 +310,7 @@ message TaskFeed {
   // How many points the task is worth (will either be the same as task or an override value)
   int32 points = 6;
 
-  // Who the task is assigned to
-  User assignee_id = 7;
+  // The unique identifier of the associated user
+  int32 assignee_id = 7;
 }
 

@@ -157,6 +157,22 @@
             "schema": {
               "$ref": "#/definitions/v1alpha1Task"
             }
+          },
+          {
+            "name": "category_id",
+            "description": "The unique identifier of the associated Category.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "assignee_id",
+            "description": "The unique identifier of the default asignee.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
           }
         ],
         "tags": [
@@ -491,14 +507,6 @@
         "is_repeatable": {
           "type": "boolean",
           "title": "Whether the task is repeatable\ndefaults to false if not specified"
-        },
-        "category": {
-          "$ref": "#/definitions/v1alpha1Category",
-          "title": "Category details for the task"
-        },
-        "assignee": {
-          "$ref": "#/definitions/v1alpha1User",
-          "title": "Assignee details for the task"
         }
       },
       "required": [
@@ -514,9 +522,10 @@
           "format": "int32",
           "title": "The unique identifier of the task feed"
         },
-        "task": {
-          "$ref": "#/definitions/v1alpha1Task",
-          "title": "The associated Task"
+        "task_id": {
+          "type": "integer",
+          "format": "int32",
+          "title": "The unique identifier of the associated Task"
         },
         "is_complete": {
           "type": "boolean",
@@ -537,8 +546,9 @@
           "title": "How many points the task is worth (will either be the same as task or an override value)"
         },
         "assignee_id": {
-          "$ref": "#/definitions/v1alpha1User",
-          "title": "Who the task is assigned to"
+          "type": "integer",
+          "format": "int32",
+          "title": "The unique identifier of the associated user"
         }
       }
     },

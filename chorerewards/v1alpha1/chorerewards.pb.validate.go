@@ -802,6 +802,10 @@ func (m *CreateTaskRequest) Validate() error {
 		}
 	}
 
+	// no validation rules for CategoryId
+
+	// no validation rules for AssigneeId
+
 	return nil
 }
 
@@ -1552,26 +1556,6 @@ func (m *Task) Validate() error {
 
 	// no validation rules for IsRepeatable
 
-	if v, ok := interface{}(m.GetCategory()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return TaskValidationError{
-				field:  "Category",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if v, ok := interface{}(m.GetAssignee()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return TaskValidationError{
-				field:  "Assignee",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
 	return nil
 }
 
@@ -1638,15 +1622,7 @@ func (m *TaskFeed) Validate() error {
 
 	// no validation rules for Id
 
-	if v, ok := interface{}(m.GetTask()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return TaskFeedValidationError{
-				field:  "Task",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
+	// no validation rules for TaskId
 
 	// no validation rules for IsComplete
 
@@ -1664,15 +1640,7 @@ func (m *TaskFeed) Validate() error {
 
 	// no validation rules for Points
 
-	if v, ok := interface{}(m.GetAssigneeId()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return TaskFeedValidationError{
-				field:  "AssigneeId",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
+	// no validation rules for AssigneeId
 
 	return nil
 }
