@@ -157,22 +157,6 @@
             "schema": {
               "$ref": "#/definitions/v1alpha1Task"
             }
-          },
-          {
-            "name": "category_id",
-            "description": "The unique identifier of the associated Category.",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "assignee_id",
-            "description": "The unique identifier of the default asignee.",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
           }
         ],
         "tags": [
@@ -383,16 +367,6 @@
         "task": {
           "$ref": "#/definitions/v1alpha1Task",
           "title": "The created task"
-        },
-        "category_id": {
-          "type": "integer",
-          "format": "int32",
-          "title": "The unique identifier of the associated Category"
-        },
-        "assignee_id": {
-          "type": "integer",
-          "format": "int32",
-          "title": "The unique identifier of the default asignee"
         }
       }
     },
@@ -517,6 +491,16 @@
         "is_repeatable": {
           "type": "boolean",
           "title": "Whether the task is repeatable\ndefaults to false if not specified"
+        },
+        "category_id": {
+          "type": "integer",
+          "format": "int32",
+          "title": "The unique identifier of the associated Category"
+        },
+        "assignee_id": {
+          "type": "integer",
+          "format": "int32",
+          "title": "The unique identifier of the default asignee"
         }
       },
       "required": [

@@ -154,23 +154,11 @@ message ListTasksResponse {
 message CreateTaskRequest {
   // The task to create
   Task task = 1;
-
-  // The unique identifier of the associated Category
-  int32 category_id = 2;
-
-  // The unique identifier of the default asignee
-  int32 assignee_id = 3;
 }
 
 message CreateTaskResponse {
   // The created task
   Task task = 1;
-
-  // The unique identifier of the associated Category
-  int32 category_id = 2;
-
-  // The unique identifier of the default asignee
-  int32 assignee_id = 3;
 }
 
 message ListTasksFeedRequest {}
@@ -295,6 +283,12 @@ message Task {
   // Whether the task is repeatable
   // defaults to false if not specified
   bool is_repeatable = 5;
+
+  // The unique identifier of the associated Category
+  int32 category_id = 6;
+
+  // The unique identifier of the default asignee
+  int32 assignee_id = 7;
 }
 
 message TaskFeed {

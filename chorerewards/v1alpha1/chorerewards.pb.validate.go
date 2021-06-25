@@ -802,10 +802,6 @@ func (m *CreateTaskRequest) Validate() error {
 		}
 	}
 
-	// no validation rules for CategoryId
-
-	// no validation rules for AssigneeId
-
 	return nil
 }
 
@@ -882,10 +878,6 @@ func (m *CreateTaskResponse) Validate() error {
 			}
 		}
 	}
-
-	// no validation rules for CategoryId
-
-	// no validation rules for AssigneeId
 
 	return nil
 }
@@ -1559,6 +1551,10 @@ func (m *Task) Validate() error {
 	// no validation rules for Points
 
 	// no validation rules for IsRepeatable
+
+	// no validation rules for CategoryId
+
+	// no validation rules for AssigneeId
 
 	return nil
 }
