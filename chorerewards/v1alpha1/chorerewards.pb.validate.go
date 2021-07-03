@@ -1322,6 +1322,10 @@ func (m *LoginResponse) Validate() error {
 
 	// no validation rules for Token
 
+	// no validation rules for IsAdmin
+
+	// no validation rules for IsParent
+
 	return nil
 }
 

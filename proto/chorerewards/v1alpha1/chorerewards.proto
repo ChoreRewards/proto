@@ -194,6 +194,12 @@ message LoginRequest {
 message LoginResponse {
   // The authentication token
   string token = 1;
+
+  // Whether the user is an admin
+  bool is_admin = 2;
+
+  // Whether the user is a parent
+  bool is_parent = 3;
 }
 
 message Category {
